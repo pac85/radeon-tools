@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import sys, struct, os.path
+import zstandard as zstd
 
 packet3 = {
     0x10: "NOP",
@@ -272,6 +273,16 @@ with open(sys.argv[1], "rb") as fd:
         fd.read(0x100)
         FMT = "<I"
     data = fd.read()
+
+zstd_compressed = True
+for (i, b) in enumerate(reversed([0xfd, 0x2f, 0xb5, 0x28])):
+    if data[i] != b:
+        zstd_compressed = False
+        break
+
+if zstd_compressed:
+    dctx = zstd.ZstdDecompressor()
+    data = dctx.decompress(data)
 
 total_size = len(data)
 code_size = total_size & ~0xfff
