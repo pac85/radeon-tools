@@ -30,3 +30,11 @@ $ python3 f32dis.py /lib/firmware/radeon/LIVERPOOL_pfp.bin
    4  c42f03e7 | ldw r11, unk[r0, #0x3e7]
 [...]
 ```
+
+## New format
+
+This tool is wip and has several hardcoded values for now
+
+```shell
+$ python f32dis_newformat.py /lib/firmware/amdgpu/gc_11_0_4_me.bin.zst
+```
