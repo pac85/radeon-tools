@@ -158,6 +158,12 @@ def dis(off, inst):
         # Compare and Branch if Nonzero
         addlabel(s16(imm)+off)
         return "cbnz r%d, %s" % (rs, loc(s16(imm)+off))
+    elif a == 0x25:
+        addlabel(s16(imm)+off)
+        return "cbz? r%d, %s" % (rs, loc(s16(imm)+off))
+    elif a == 0x26:
+        addlabel(s16(imm)+off)
+        return "cbnz? r%d, %s" % (rs, loc(s16(imm)+off))
     elif (a,rs) == (0x30,0):
         # Load immediate (other half may be 0000 or ffff)
         if b == 0:
