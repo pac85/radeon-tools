@@ -227,7 +227,7 @@ with open(sys.argv[1], "rb") as f:
     print(";-----------jmptab----------------")
     for i in range(0, dl//4*4, 4):
         v = read_word(data[i:])
-        addr = (v & 0xffff) + 64
+        addr = (v & 0xffff)
         opcode = v >> 20 & 0xff
         pktname = f"PKT_0x{opcode:x}"
         if (opcode) in pkt3s:
@@ -236,7 +236,7 @@ with open(sys.argv[1], "rb") as f:
         jtab.add(addr)
         print("; {0} = {1:x}".format(pktname, addr*4))
     print(";---------------------------------")
-    data = odata[0x100:0x7a80]
+    data = odata[0x100+64*4:0x7a80]
     dl = len(data)
     last_command_end = 0
 
